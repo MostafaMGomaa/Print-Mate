@@ -56,11 +56,12 @@ cd printmate-app && npm install
 2. Add the necessary configuration variables:
 
 ```markdown file
-DB_HOST=your_mysql_host
-DB_USER=your_mysql_username
-DB_PASSWORD=your_mysql_password
-DB_DATABASE=your_mysql_database_name
+NODE_ENV=dev
 PORT=8080
+DB_HOST=your_mysql_host
+DB_USERNAME=your_mysql_username
+DB_PASSWORD=your_mysql_password
+DB_NAME=your_mysql_database_name
 ```
 
 ## Usage
