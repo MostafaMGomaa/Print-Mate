@@ -14,8 +14,7 @@
   - [Uploading PDFs](#uploading-pdf)
   - [Checking Order Status](#checking-order-status)
   - [Notifications](#notifications)
-- [Contributing](#Contributing)
-- [License](#License)
+- [Schema](#schema)
 
 ## Introduction
 
@@ -83,16 +82,44 @@ Follow these steps to use the PrintMate app:
 
 PrintMate will automatically send you notifications through email or SMS when your order is complete.
 
-## Contributing
+**User**
+| Column | Type |
+|-------- |-----|
+| UserID | UNSIGNED SMALLINT |
+| Name | STRING|
+| Email | STRING |
+| Photo | STRING |
+| Role | STRING |
+| Password | STRING|  
+| PasswordConfirm| STRING|  
+| Verified | BOOLEAN |
+| PasswordChangedAt | Date |
+| PasswordResetToken | STRING |
+| PasswordResetExpires | DATE |
 
-We welcome contributions from the community. To contribute to PrintMate, follow these steps:
+**Notification**
+| Column | Type |
+|--------|-----|
+| UserID | UNSIGNED SMALLINT |
+| Description | Text |
+| IsRead | BOOLEAN |
+| CreateAt | Timestamp |
 
-Fork the repository on GitHub.
-Create a new branch for your feature: git checkout -b my-feature-branch
-Make your changes and commit them: git commit -m "Add new feature"
-Push your changes to your forked repository: git push origin my-feature-branch
-Submit a pull request to the original repository.
+**Paper**
+| Column | Type |
+| ------ | ---- |
+| UserID | UNSIGNED SMALLINT |
+| Size | STRING|
+| Material | STRING |
+| File | STRING |
+| Notes | Text |
+| CreatedAt | Timestamp |
 
-## License
-
-This project is licensed under the MIT License.
+**Library**
+| Column | Type |
+|---|---|
+| Name | STRING |
+| File | STRING |
+| AveragePrice |UNSIGNED SMALLINT |
+| RatingQuantity | UNSIGNED SMALLINT |
+| RatingAverage | FLOAT |
