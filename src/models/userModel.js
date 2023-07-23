@@ -38,13 +38,15 @@ const User = sequelize.define(
   }
 );
 
-User.beforeSave(function (user) {
+// Check if password = passwordConfirm
+User.beforeSave((user) => {
   if (user.changed('password')) {
     if (user.password !== user.passwordConfirm)
       throw new Error('Passwords do not match');
   }
 });
 
+// To trim username and convert it to lowercase
 User.beforeSave((user) => {
   user.name = user.name.trim().toLowerCase();
 });
