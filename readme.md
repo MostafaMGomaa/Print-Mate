@@ -82,6 +82,8 @@ Follow these steps to use the PrintMate app:
 
 PrintMate will automatically send you notifications through email or SMS when your order is complete.
 
+## Schema
+
 **User**
 | Column | Type |
 |-------- |-----|
@@ -93,7 +95,7 @@ PrintMate will automatically send you notifications through email or SMS when yo
 | Password | STRING|  
 | PasswordConfirm| STRING|  
 | Verified | BOOLEAN |
-| PasswordChangedAt | Date |
+| PasswordChangedAt | DATE |
 | PasswordResetToken | STRING |
 | PasswordResetExpires | DATE |
 
@@ -103,7 +105,7 @@ PrintMate will automatically send you notifications through email or SMS when yo
 | UserID | UNSIGNED SMALLINT |
 | Description | Text |
 | IsRead | BOOLEAN |
-| CreateAt | Timestamp |
+| CreateAt | DATE |
 
 **Paper**
 | Column | Type |
@@ -112,8 +114,8 @@ PrintMate will automatically send you notifications through email or SMS when yo
 | Size | STRING|
 | Material | STRING |
 | File | STRING |
-| Notes | Text |
-| CreatedAt | Timestamp |
+| Notes | TEXT |
+| CreatedAt | DATE |
 
 **Library**
 | Column | Type |
