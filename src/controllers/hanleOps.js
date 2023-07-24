@@ -1,4 +1,5 @@
 const asyncHandler = require('express-async-handler');
+const AppError = require('../helpers/appError');
 
 exports.getAll = (Model) =>
   asyncHandler(async (req, res, next) => {
@@ -25,10 +26,7 @@ exports.getOne = (Model) =>
   asyncHandler(async (req, res, next) => {
     const data = await Model.findByPk(req.params.id);
 
-    if (!data)
-      return res
-        .status(404)
-        .json({ status: 'error', message: 'cannot find user with that id' });
+    if (!data) return next(new AppError('cannot find user with that id', 404));
 
     res.status(200).json({ status: 'success', data });
   });
@@ -43,9 +41,7 @@ exports.updateOne = (Model) =>
     });
 
     if (updatedRowCount === 0)
-      return res
-        .status(404)
-        .json({ status: 'error', message: 'cannot find user with that id' });
+      return next(new AppError('cannot find user with that id', 404));
 
     res
       .status(200)
@@ -60,9 +56,8 @@ exports.deleteOne = (Model) =>
       },
     });
 
-    if (data === 0) {
-      return res.status(404).json({ error: 'User not found' });
-    }
+    if (data === 0)
+      return next(new AppError('cannot find user with that id', 404));
 
     res.status(204).json({ message: 'User deleted successfully' });
   });

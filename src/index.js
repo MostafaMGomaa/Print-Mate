@@ -7,7 +7,7 @@ dotenv.config({ path: `${__dirname}/.env` });
 
 const PORT = process.env.PORT || 3000;
 
-db.sync({ force: true })
+db.sync()
   .then(() => console.log(`DB sync`))
   .catch((err) => console.error(err));
 

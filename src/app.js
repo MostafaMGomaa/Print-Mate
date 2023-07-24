@@ -2,24 +2,21 @@ const express = require('express');
 const morgan = require('morgan');
 
 const userRoutes = require('./routes/userRoutes');
+const globalErrorHandler = require('./controllers/errorController');
+const AppError = require('./helpers/appError');
+
 const app = express();
 
 app.use(express.json());
 
-// errorHandler.js
-const errorHandler = (error, req, res, next) => {
-  // Log the error for debugging (optional)
-  console.error(error);
-
-  // Set the status code for the response (500 for internal server error)
-  res.status(500);
-
-  // Send the error as a JSON response
-  res.json({ error });
-};
-
 if (process.env.NODE_ENV === 'prod') app.use(morgan);
 
 app.use('/api/v1/users', userRoutes);
-app.use(errorHandler);
+
+app.all('*', (req, res, next) => {
+  return next(new AppError(`Cannot find ${req.originalUrl} in server`, 404));
+});
+
+app.use(globalErrorHandler);
+
 module.exports = app;
