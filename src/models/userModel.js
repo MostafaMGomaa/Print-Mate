@@ -1,5 +1,6 @@
 const { DataTypes } = require('sequelize');
 const sequelize = require('../db');
+const bcrypt = require('bcryptjs');
 
 const User = sequelize.define(
   'user',
@@ -27,7 +28,7 @@ const User = sequelize.define(
       allowNull: false,
       validate: { len: [8, 50] },
     },
-    passwordConfirm: { type: DataTypes.STRING, allowNull: false },
+    passwordConfirm: DataTypes.STRING,
     verified: { type: DataTypes.BOOLEAN, defaultValue: false },
     passwordChangedAt: DataTypes.DATE,
     passwordResetToken: DataTypes.DATE,
@@ -38,11 +39,16 @@ const User = sequelize.define(
   }
 );
 
-// Check if password = passwordConfirm
-User.beforeSave((user) => {
+User.beforeSave(async (user) => {
   if (user.changed('password')) {
+    // Validate password , passwordConfirm
     if (user.password !== user.passwordConfirm)
       throw new Error('Passwords do not match');
+
+    // Hash the password and set passwordConfirm undefined
+    user.password = await bcrypt.hash(user.password, 12);
+    user.passwordConfirm = undefined;
+    // delete user.dataValues.passwordConfirm;
   }
 });
 
