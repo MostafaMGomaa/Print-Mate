@@ -9,6 +9,7 @@ const {
 
 exports.getAllUsers = getAll(User);
 exports.getOneUser = getOne(User);
+// All This controller below for test only .
 exports.createOneUser = createOne(User);
 exports.deleteOneUser = deleteOne(User);
 exports.updateOneUser = updateOne(User);
