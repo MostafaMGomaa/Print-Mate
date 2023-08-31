@@ -55,16 +55,12 @@ User.beforeSave(async (user) => {
   if (user.changed('password')) {
     // Validate password , passwordConfirm
     if (user.password !== user.passwordConfirm)
-      return new AppError('Passwords do not match', 400);
+      throw new AppError('Passwords do not match', 400);
 
     // Hash the password and set passwordConfirm undefined
     user.password = await bcrypt.hash(user.password, 12);
     user.passwordConfirm = undefined;
   }
-});
-
-// To trim username and convert it to lowercase
-User.beforeSave((user) => {
   user.name = user.name.trim().toLowerCase();
 });
 

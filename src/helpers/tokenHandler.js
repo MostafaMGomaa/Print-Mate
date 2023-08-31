@@ -9,7 +9,7 @@ exports.generateToken = (user, res) => {
       userId: user.id,
       role: user.role,
     },
-    process.env.SECKEY,
+    process.env.JWT_SECERT_KEY,
     { expiresIn: '7d' }
   );
 
@@ -23,27 +23,31 @@ exports.generateToken = (user, res) => {
   return token;
 };
 
-exports.verifyToken = asyncHandler(async(req,res,next)=>{
+exports.verifyToken = asyncHandler(async (req, res, next) => {
   const token = req.cookies.jwt;
-  if(!token) 
-    return next(new AppError('You are not logged in! Please login for get access', 403));
+  if (!token)
+    return next(
+      new AppError('You are not logged in! Please login for get access', 403)
+    );
 
   const decoded = await jwt.verify(token, process.env.SECKEY);
-  const user    = await User.findByPk(decoded?.userId);
+  const user = await User.findByPk(decoded?.userId);
   req.user = user;
   next();
 });
 
-exports.isAdminToken =  asyncHandler(async(req,res,next)=>{
+exports.isAdminToken = asyncHandler(async (req, res, next) => {
   const token = await req.cookies.jwt;
-  if(!token) 
-    return next(new AppError('You are not logged in! Please login for get access', 401));
+  if (!token)
+    return next(
+      new AppError('You are not logged in! Please login for get access', 401)
+    );
 
   const decoded = await jwt.verify(token, process.env.SECKEY);
-  const user    = await User.findByPk(decoded?.userId);
-  if(decoded.role != 'admin')
+  const user = await User.findByPk(decoded?.userId);
+  if (decoded.role != 'admin')
     return next(new AppError('Unauthorized access!', 401));
-     
+
   req.user = user;
   next();
 });

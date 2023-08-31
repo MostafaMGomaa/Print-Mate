@@ -11,7 +11,7 @@ const app = express();
 app.use(express.json());
 app.use(cookieParser());
 
-if (process.env.NODE_ENV === 'prod') app.use(morgan);
+if (process.env.NODE_ENV !== 'production') app.use(morgan('dev'));
 
 app.use('/api/v1/users', userRoutes);
 
