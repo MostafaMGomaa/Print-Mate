@@ -22,13 +22,13 @@ function sendErrorProd(err, res) {
       message: err.message,
     });
   }
-  // Other unkown errros
+  // Other unknown errors
   else {
     console.error('Error 💥', err);
 
     res.status(500).json({
       status: 'error',
-      message: 'Somthing went wrong',
+      message: 'Something went wrong',
     });
   }
 }

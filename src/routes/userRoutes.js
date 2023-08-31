@@ -1,4 +1,5 @@
 const router = require('express').Router();
+const {verifyToken, isAdminToken} = require('../helpers/tokenHandler');
 const {
   signup,
   login,
@@ -6,8 +7,8 @@ const {
   forgotPassword,
   resetPassword,
   getAllUsers,
-  getOneUser,
   updateOneUser,
+  getOneUser,
   deleteOneUser
 } = require('../controllers/userController');
 
@@ -20,9 +21,9 @@ router.route('/reset-password/:id/:token')
     //.get();
 router.get('/logout', logout);
 
-router.route('/:id').get(getOneUser).patch(updateOneUser);
+router.route('/:id', verifyToken).get(getOneUser).patch(updateOneUser);
 
 // @dec admin operations
-router.get('/', getAllUsers);
-router.delete('/:id',deleteOneUser);
+router.get('/',       isAdminToken, getAllUsers);
+router.delete('/:id', isAdminToken, deleteOneUser);
 module.exports = router;
