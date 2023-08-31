@@ -1,14 +1,28 @@
+const router = require('express').Router();
 const {
+  signup,
+  login,
+  logout,
+  forgotPassword,
+  resetPassword,
   getAllUsers,
-  createOneUser,
   getOneUser,
   updateOneUser,
-  deleteOneUser,
+  deleteOneUser
 } = require('../controllers/userController');
 
-const router = require('express').Router();
+//Authentication 
+router.post('/signup', signup);
+router.post('/login',  login);
+router.post('/forgot-password', forgotPassword);
+router.route('/reset-password/:id/:token')
+      .post(resetPassword)
+    //.get();
+router.get('/logout', logout);
 
-router.route('/').get(getAllUsers).post(createOneUser);
-router.route('/:id').get(getOneUser).patch(updateOneUser).delete(deleteOneUser);
+router.route('/:id').get(getOneUser).patch(updateOneUser);
 
+// @dec admin operations
+router.get('/', getAllUsers);
+router.delete('/:id',deleteOneUser);
 module.exports = router;

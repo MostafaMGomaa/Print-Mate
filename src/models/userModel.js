@@ -43,8 +43,8 @@ const User = sequelize.define(
     passwordConfirm: DataTypes.STRING,
     verified: { type: DataTypes.BOOLEAN, defaultValue: false },
     passwordChangedAt: DataTypes.DATE,
-    passwordResetToken: DataTypes.DATE,
-    passwordResetExpires: DataTypes.STRING,
+    passwordResetToken: DataTypes.STRING,
+    passwordResetExpires: DataTypes.DATE,
   },
   {
     timestamps: false,
