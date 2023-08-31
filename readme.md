@@ -61,6 +61,10 @@ DB_HOST=your_mysql_host
 DB_USERNAME=your_mysql_username
 DB_PASSWORD=your_mysql_password
 DB_NAME=your_mysql_database_name
+
+SECKEY = jsonwebtoken_secret_key
+SENDGRID_APIKEY = your_send_grid_api_key
+EMAIL_NAME = your_email
 ```
 
 ## Usage
