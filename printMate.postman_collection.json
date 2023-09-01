@@ -1,0 +1,395 @@
+{
+	"info": {
+		"_postman_id": "67221133-3632-402a-8987-65e44eb1d102",
+		"name": "printMate",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "25350743",
+		"_collection_link": "https://www.postman.com/telecoms-specialist-16112359/workspace/printmate/collection/25350743-67221133-3632-402a-8987-65e44eb1d102?action=share&source=collection_link&creator=25350743"
+	},
+	"item": [
+		{
+			"name": "Users",
+			"item": [
+				{
+					"name": "Auth",
+					"item": [
+						{
+							"name": "Signup",
+							"request": {
+								"method": "POST",
+								"header": [],
+								"url": {
+									"raw": "{{local}}api/v1/users/signup",
+									"host": [
+										"{{local}}api"
+									],
+									"path": [
+										"v1",
+										"users",
+										"signup"
+									]
+								}
+							},
+							"response": [
+								{
+									"name": "Signup",
+									"originalRequest": {
+										"method": "POST",
+										"header": [
+											{
+												"key": "Content-Type",
+												"name": "Content-Type",
+												"value": "application/json",
+												"type": "text"
+											}
+										],
+										"body": {
+											"mode": "raw",
+											"raw": "{\r\n    \"name\": \"rawan\",\r\n    \"email\": \"rawan@alex.edu.eg\",\r\n    \"password\":\"12345678\",\r\n    \"passwordConfirm\":\"12345678\"\r\n}",
+											"options": {
+												"raw": {
+													"language": "json"
+												}
+											}
+										},
+										"url": {
+											"raw": "{{local}}api/v1/users/signup",
+											"host": [
+												"{{local}}api"
+											],
+											"path": [
+												"v1",
+												"users",
+												"signup"
+											]
+										}
+									},
+									"_postman_previewlanguage": null,
+									"header": null,
+									"cookie": [],
+									"body": null
+								}
+							]
+						},
+						{
+							"name": "Login",
+							"request": {
+								"method": "POST",
+								"header": [],
+								"url": {
+									"raw": "{{local}}api/v1/users/login",
+									"host": [
+										"{{local}}api"
+									],
+									"path": [
+										"v1",
+										"users",
+										"login"
+									]
+								}
+							},
+							"response": [
+								{
+									"name": "Login",
+									"originalRequest": {
+										"method": "POST",
+										"header": [
+											{
+												"key": "Content-Type",
+												"name": "Content-Type",
+												"value": "application/json",
+												"type": "text"
+											}
+										],
+										"body": {
+											"mode": "raw",
+											"raw": "{\r\n    \"email\": \"rawan@alex.edu.eg\",\r\n    \"password\":\"12345678\"\r\n}",
+											"options": {
+												"raw": {
+													"language": "json"
+												}
+											}
+										},
+										"url": {
+											"raw": "{{local}}api/v1/users/login",
+											"host": [
+												"{{local}}api"
+											],
+											"path": [
+												"v1",
+												"users",
+												"login"
+											]
+										}
+									},
+									"_postman_previewlanguage": null,
+									"header": null,
+									"cookie": [],
+									"body": null
+								}
+							]
+						},
+						{
+							"name": "Forgot Password",
+							"request": {
+								"method": "POST",
+								"header": [],
+								"url": {
+									"raw": "{{local}}api/v1/users/forgot-password",
+									"host": [
+										"{{local}}api"
+									],
+									"path": [
+										"v1",
+										"users",
+										"forgot-password"
+									]
+								}
+							},
+							"response": [
+								{
+									"name": "Forgot Password",
+									"originalRequest": {
+										"method": "POST",
+										"header": [
+											{
+												"key": "Content-Type",
+												"name": "Content-Type",
+												"value": "application/json",
+												"type": "text"
+											}
+										],
+										"body": {
+											"mode": "raw",
+											"raw": "{\r\n  \"email\": \"rawan@alex.edu.eg\"\r\n}",
+											"options": {
+												"raw": {
+													"language": "json"
+												}
+											}
+										},
+										"url": {
+											"raw": "{{local}}api/v1/users/forgot-password",
+											"host": [
+												"{{local}}api"
+											],
+											"path": [
+												"v1",
+												"users",
+												"forgot-password"
+											]
+										}
+									},
+									"_postman_previewlanguage": null,
+									"header": null,
+									"cookie": [],
+									"body": null
+								}
+							]
+						},
+						{
+							"name": "Reset Password",
+							"request": {
+								"method": "POST",
+								"header": [],
+								"url": {
+									"raw": "{{local}}api/v1/users/reset-password/:id/:token",
+									"host": [
+										"{{local}}api"
+									],
+									"path": [
+										"v1",
+										"users",
+										"reset-password",
+										":id",
+										":token"
+									],
+									"variable": [
+										{
+											"key": "id",
+											"value": ""
+										},
+										{
+											"key": "token",
+											"value": ""
+										}
+									]
+								}
+							},
+							"response": [
+								{
+									"name": "Reset Password",
+									"originalRequest": {
+										"method": "POST",
+										"header": [
+											{
+												"key": "Content-Type",
+												"name": "Content-Type",
+												"value": "application/json",
+												"type": "text"
+											}
+										],
+										"body": {
+											"mode": "raw",
+											"raw": "{\r\n    \"password\":\"12345678\",\r\n    \"passwordConfirm\":\"12345678\"\r\n}",
+											"options": {
+												"raw": {
+													"language": "json"
+												}
+											}
+										},
+										"url": {
+											"raw": "{{local}}api/v1/users/reset-password/:id/:token",
+											"host": [
+												"{{local}}api"
+											],
+											"path": [
+												"v1",
+												"users",
+												"reset-password",
+												":id",
+												":token"
+											],
+											"variable": [
+												{
+													"key": "id",
+													"value": ""
+												},
+												{
+													"key": "token",
+													"value": ""
+												}
+											]
+										}
+									},
+									"_postman_previewlanguage": null,
+									"header": null,
+									"cookie": [],
+									"body": null
+								}
+							]
+						},
+						{
+							"name": "Logout",
+							"request": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "{{local}}api/v1/users/logout",
+									"host": [
+										"{{local}}api"
+									],
+									"path": [
+										"v1",
+										"users",
+										"logout"
+									]
+								}
+							},
+							"response": []
+						}
+					]
+				},
+				{
+					"name": "CRUD OPs",
+					"item": [
+						{
+							"name": "Get All",
+							"request": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "{{local}}api/v1/users/",
+									"host": [
+										"{{local}}api"
+									],
+									"path": [
+										"v1",
+										"users",
+										""
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Get One",
+							"request": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "{{local}}api/v1/users/:id",
+									"host": [
+										"{{local}}api"
+									],
+									"path": [
+										"v1",
+										"users",
+										":id"
+									],
+									"variable": [
+										{
+											"key": "id",
+											"value": ""
+										}
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Delete One",
+							"request": {
+								"method": "DELETE",
+								"header": [],
+								"url": {
+									"raw": "{{local}}api/v1/users/:id",
+									"host": [
+										"{{local}}api"
+									],
+									"path": [
+										"v1",
+										"users",
+										":id"
+									],
+									"variable": [
+										{
+											"key": "id",
+											"value": ""
+										}
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Update One",
+							"request": {
+								"method": "PATCH",
+								"header": [],
+								"url": {
+									"raw": "{{local}}api/v1/users/:id",
+									"host": [
+										"{{local}}api"
+									],
+									"path": [
+										"v1",
+										"users",
+										":id"
+									],
+									"variable": [
+										{
+											"key": "id",
+											"value": ""
+										}
+									]
+								}
+							},
+							"response": []
+						}
+					]
+				}
+			]
+		}
+	]
+}
