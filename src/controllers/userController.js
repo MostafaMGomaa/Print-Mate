@@ -1,13 +1,12 @@
 const asyncHandler = require('express-async-handler');
 const bcrypt = require('bcryptjs');
 const crypto = require('crypto');
-const validator = require('validator');
 
 const User = require('../models/userModel');
 const Email = require('../helpers/Email');
 const AppError = require('../helpers/appError');
-const isUnEmail = require('../helpers/isUnEmail');
-const { generateToken } = require('../helpers/tokenHandler');
+const { isUnEmail } = require('../helpers/middlewares');
+const { generateJWT, isVaildUserToken } = require('../helpers/auth');
 const { getAll, getOne, deleteOne, updateOne } = require('./crudFactory');
 
 exports.getAllUsers = getAll(User);
@@ -16,11 +15,14 @@ exports.deleteOneUser = deleteOne(User);
 exports.updateOneUser = updateOne(User);
 
 exports.signup = asyncHandler(async (req, res, next) => {
+  // if (!isUnEmail(req.body.email))
+  //   return next(new AppError('Invaild email', 400));
+
   const user = await User.findOne({ where: { email: req.body.email } });
   if (user) return next(new AppError('User already exists', 403));
 
   const newUser = await User.create({ ...req.body, role: 'user' });
-  const token = generateToken(newUser, res);
+  const token = generateJWT(newUser, res);
 
   res.status(201).json({
     status: 'success',
@@ -36,7 +38,7 @@ exports.login = asyncHandler(async (req, res, next) => {
   const validPass = await bcrypt.compare(req.body.password, user.password);
   if (!validPass) return next(new AppError('Invalid email or password', 403));
 
-  const token = generateToken(user, res);
+  const token = generateJWT(user, res);
 
   res.status(201).json({
     status: 'success',
@@ -58,8 +60,7 @@ exports.logout = asyncHandler(async (req, res) => {
 
 exports.forgotPassword = asyncHandler(async (req, res, next) => {
   const user = await User.findOne({ where: { email: req.body.email } });
-  if (!user)
-    return next(new AppError('Cannot find any users with this email', 404));
+  if (!user) return next(new AppError('Cannot find any users', 404));
 
   const resetToken = crypto.randomBytes(4).toString('hex');
 
@@ -72,31 +73,52 @@ exports.forgotPassword = asyncHandler(async (req, res, next) => {
 
   await user.save();
 
-  await new Email(user.email, resetToken).restPassword();
+  try {
+    await new Email(user.email, resetToken).restPassword();
 
-  res.status(200).json({
-    status: 'success',
-    message: 'Token sent to your email',
-  });
+    res.status(200).json({
+      status: 'success',
+      message: 'Token sent to your email',
+    });
+  } catch (err) {
+    console.error(err);
+
+    user.passwordResetToken = null;
+    user.passwordResetExpires = null;
+    await user.save();
+
+    return next(
+      new AppError('There was an error sending the email. Try again later!'),
+      500
+    );
+  }
 });
 
 exports.resetPassword = asyncHandler(async (req, res, next) => {
-  const user = await User.findOne({
-    where: { passwordResetToken: req.params.token },
+  try {
+    const user = await isVaildUserToken(req, res, next);
+
+    if (!user) return next(new AppError('Cannot find any users', 404));
+
+    user.password = req.body.password;
+    user.passwordConfirm = req.body.passwordConfirm;
+    user.passwordResetToken = null;
+    user.passwordResetExpires = null;
+    await user.save();
+
+    res.status(200).json({ message: 'Password changed' });
+  } catch (error) {
+    next(error);
+  }
+});
+
+exports.verifyToken = asyncHandler(async (req, res, next) => {
+  const user = await isVaildUserToken(req, res, next);
+
+  if (!user)
+    return next(new AppError('Token is invalied or has expired!', 400));
+
+  res.status(200).json({
+    status: 'success',
   });
-
-  if (!user) return next(new AppError('Invalid Token', 404));
-  if (user.resetTokenExpires >= Date.now())
-    return next(new AppError('link has been expired', 401));
-  if (req.body.password != req.body.passwordConfirm)
-    return next(new AppError("password doesn't match", 400));
-
-  const hashedPass = await bcrypt.hash(req.body.password, 10);
-  user.password = hashedPass;
-  user.passwordConfirm = null;
-  user.passwordResetToken = null;
-  user.resetTokenExpires = null;
-
-  await user.save();
-  res.status(200).json({ message: 'Password changed' });
 });

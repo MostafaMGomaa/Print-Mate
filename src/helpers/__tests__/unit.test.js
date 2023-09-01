@@ -1,4 +1,4 @@
-const isUnEmail = require('../isUnEmail');
+const { isUnEmail } = require('../middlewares');
 
 describe('Chcek if given mail is univeristy mails', () => {
   const goodMail = ['mostafa@alex.edu.eg', '1243@alex.edu.eg'];

@@ -1,7 +1,7 @@
 const router = require('express').Router();
 const { body } = require('express-validator');
 
-const { verifyToken, isAdminToken } = require('../helpers/tokenHandler');
+const { protect, restrictTo } = require('../helpers/auth');
 const { handleInputError } = require('../helpers/middlewares');
 const {
   signup,
@@ -13,6 +13,7 @@ const {
   updateOneUser,
   getOneUser,
   deleteOneUser,
+  verifyToken,
 } = require('../controllers/userController');
 
 //Authentication
@@ -26,6 +27,7 @@ router.post(
   handleInputError,
   signup
 );
+
 router.post(
   '/login',
   body('email').isEmail().withMessage('Please enter vaild email'),
@@ -35,14 +37,17 @@ router.post(
   handleInputError,
   login
 );
-router.post('/forgot-password', forgotPassword);
-router.route('/reset-password/:id/:token').post(resetPassword);
 
+router.post('/forgot-password', forgotPassword);
+router.patch('/reset-password/:resetToken', resetPassword);
+router.get('/verify-token/:resetToken', verifyToken);
 router.get('/logout', logout);
 
+router.use(protect);
 router.route('/:id').get(getOneUser).patch(updateOneUser);
+router.get('/', getAllUsers);
 
-// @dec admin operations
-router.get('/', isAdminToken, getAllUsers);
-router.delete('/:id', isAdminToken, deleteOneUser);
+router.use(restrictTo('admin'));
+router.delete('/:id', deleteOneUser);
+
 module.exports = router;

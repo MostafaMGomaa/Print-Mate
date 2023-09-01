@@ -10,6 +10,11 @@ exports.handleInputError = (req, res, next) => {
       errors: errors.array(),
     });
   }
-
   next();
+};
+
+exports.isUnEmail = (email) => {
+  const universityDomain = 'alex.edu.eg';
+  const emailDomain = email.split('@')[1];
+  return universityDomain.includes(emailDomain);
 };
