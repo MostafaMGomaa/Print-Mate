@@ -1,6 +1,6 @@
 const sgMail = require('@sendgrid/mail');
 require('dotenv').config();
-sgMail.setApiKey("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");
+sgMail.setApiKey(process.env.SENDGRID_APIKEY);
 
 module.exports = (user, res)=>{
    const link = `http://localhost:${process.env.PORT}/api/v1/users/reset-Password/${user.id}/${user.passwordResetToken}`;
