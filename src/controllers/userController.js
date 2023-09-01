@@ -48,14 +48,13 @@ exports.login = asyncHandler(async (req, res, next) => {
      return next(new AppError('Invalid email or password', 403));
     
   const user = await User.findOne({ where: { email: req.body.email } });
-  const validPass = await bcrypt.compare(req.body.password, user.password);
-  if (!validPass || !validEmail)
-    return next(new AppError('Invalid email or password', 403));
-
-
   if (!user) return next(new AppError('User not found!', 404));
 
-  const token = generateToken(user, res);
+  const validPass = await bcrypt.compare(req.body.password, user.password);
+  if (!validPass)
+    return next(new AppError('Invalid email or password', 403));
+
+  const token =await generateToken(user, res);
 
   res.status(201).json({
     status: 'success',
