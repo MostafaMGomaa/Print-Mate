@@ -1,0 +1,17 @@
+version: '3.7'
+networks:
+  mynetwork:
+    driver: bridge
+services:
+  mysql-test:
+    image: mysql:latest
+    container_name: test-container
+    hostname: test
+    environment:
+      MYSQL_ROOT_PASSWORD: '123456789'
+      MYSQL_DATABASE: 'test'
+    ports:
+      - '3307:3306'
+      - '33070:33060'
+    networks:
+      - mynetwork

@@ -8,9 +8,10 @@ class DB {
     this.environment = process.env.NODE_ENV || 'development';
   }
 
-  connectDb(name, username, password, host) {
+  connectDb(name, username, password, host, port) {
     return new Sequelize(name, username, password, {
       host: host,
+      port: port,
       dialect: 'mysql',
       logging: false,
     });
@@ -21,14 +22,16 @@ class DB {
         process.env.DB_NAME,
         process.env.DB_USERNAME,
         process.env.DB_PASSWORD,
-        process.env.DB_HOST
+        process.env.DB_HOST,
+        process.env.DB_PORT
       );
     } else if (this.environment === 'test') {
       return this.connectDb(
         process.env.TEST_DB_NAME,
         process.env.TEST_DB_USERNAME,
         process.env.TEST_DB_PASSWORD,
-        process.env.TEST_DB_HOST
+        process.env.TEST_DB_HOST,
+        process.env.TEST_DB_PORT
       );
     }
   }
