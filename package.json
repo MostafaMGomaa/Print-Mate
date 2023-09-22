@@ -6,7 +6,7 @@
   "scripts": {
     "start": "node src/index.js",
     "dev": "nodemon src/index.js",
-    "test": "jest --watch",
+    "test": "jest --watchAll",
     "test:unit": "jest --watch ./src/helpers/__tests__/unit.test.js"
   },
   "keywords": [],
@@ -15,7 +15,8 @@
   "devDependencies": {
     "jest": "^29.6.4",
     "morgan": "^1.10.0",
-    "nodemon": "^3.0.1"
+    "nodemon": "^3.0.1",
+    "ts-jest": "^29.1.1"
   },
   "dependencies": {
     "@sendgrid/mail": "^7.7.0",

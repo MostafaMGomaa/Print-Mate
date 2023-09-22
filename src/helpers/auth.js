@@ -59,6 +59,7 @@ exports.restrictTo = (...roles) => {
     next();
   };
 };
+
 exports.generateJWT = (user, res) => {
   const token = jwt.sign(
     {
