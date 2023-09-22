@@ -51,7 +51,7 @@ cd printmate-app && npm install
 
 ### Configuration
 
-1. Create a .env file in the project root directory.
+1. Create a .env file in the src directory.
 2. Add the necessary configuration variables:
 
 ```markdown file
@@ -121,7 +121,7 @@ PrintMate will automatically send you notifications through email or SMS when yo
 | IsRead      | BOOLEAN           |
 | CreateAt    | DATE              |
 
-**Paper**
+**Order**
 
 | Column    | Type              |
 | --------- | ----------------- |
