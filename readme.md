@@ -55,12 +55,20 @@ cd printmate-app && npm install
 2. Add the necessary configuration variables:
 
 ```markdown file
-NODE_ENV=dev
-PORT=8080
-DB_HOST=your_mysql_host
-DB_USERNAME=your_mysql_username
-DB_PASSWORD=your_mysql_password
-DB_NAME=your_mysql_database_name
+NODE_ENV=""
+PORT=""
+
+DB_NAME=""
+DB_USERNAME=""
+DB_PASSWORD=""
+DB_HOST=""
+DB_PORT=3307
+
+TEST_DB_NAME=""
+TEST_DB_USERNAME=""
+TEST_DB_PASSWORD=""
+TEST_DB_HOST=""
+TEST_DB_PORT=3307 || 33070
 
 SECKEY = jsonwebtoken_secret_key
 SENDGRID_APIKEY = your_send_grid_api_key
