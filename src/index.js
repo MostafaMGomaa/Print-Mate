@@ -1,17 +1,19 @@
 const dotenv = require('dotenv');
 
 const app = require('./app');
-const db = require('./db');
+const DB = require('./db');
 
 dotenv.config({ path: `${__dirname}/.env` });
 
 const PORT = process.env.PORT || 3000;
 
-db
-  .sync
-  // { force: true }
-  ()
-  .then(() => console.log(`DB sync`))
-  .catch((err) => console.error(err));
-
+const db = new DB();
+db.initDb(
+  db.getRepository(
+    process.env.DB_NAME,
+    process.env.DB_USERNAME,
+    process.env.DB_PASSWORD,
+    process.env.DB_HOST
+  )
+);
 app.listen(PORT, () => console.log(`Server on ${PORT}`));

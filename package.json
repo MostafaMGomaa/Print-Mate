@@ -4,10 +4,10 @@
   "description": "![PrintMateLogo](./images/printMateLogo.png)",
   "main": "index.js",
   "scripts": {
-    "start": "node src/index.js",
-    "dev": "nodemon src/index.js",
-    "test": "jest --watchAll",
-    "test:unit": "jest --watch ./src/helpers/__tests__/unit.test.js"
+    "start": "NODE_ENV=production node src/index.js",
+    "dev": "NODE_ENV=test nodemon src/index.js",
+    "test": "NODE_ENV=test jest --watchAll",
+    "test:unit": "NODE_ENV=test jest --watch ./src/helpers/__tests__/unit.test.js"
   },
   "keywords": [],
   "author": "",
