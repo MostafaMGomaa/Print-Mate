@@ -89,43 +89,47 @@ PrintMate will automatically send you notifications through email or SMS when yo
 ## Schema
 
 **User**
-| Column | Type |
-|-------- |-----|
-| UserID | UNSIGNED SMALLINT |
-| Name | STRING|
-| Email | STRING |
-| Photo | STRING |
-| Role | STRING |
-| Password | STRING|  
-| PasswordConfirm| STRING|  
-| Verified | BOOLEAN |
-| PasswordChangedAt | DATE |
-| PasswordResetToken | STRING |
-| PasswordResetExpires | DATE |
+
+| Column               | Type              |
+| -------------------- | ----------------- |
+| UserID               | UNSIGNED SMALLINT |
+| Name                 | STRING            |
+| Email                | STRING            |
+| Photo                | STRING            |
+| Role                 | STRING            |
+| Password             | STRING            |
+| PasswordConfirm      | STRING            |
+| Verified             | BOOLEAN           |
+| PasswordChangedAt    | DATE              |
+| PasswordResetToken   | STRING            |
+| PasswordResetExpires | DATE              |
 
 **Notification**
-| Column | Type |
-|--------|-----|
-| UserID | UNSIGNED SMALLINT |
-| Description | Text |
-| IsRead | BOOLEAN |
-| CreateAt | DATE |
+
+| Column      | Type              |
+| ----------- | ----------------- |
+| UserID      | UNSIGNED SMALLINT |
+| Description | Text              |
+| IsRead      | BOOLEAN           |
+| CreateAt    | DATE              |
 
 **Paper**
-| Column | Type |
-| ------ | ---- |
-| UserID | UNSIGNED SMALLINT |
-| Size | STRING|
-| Material | STRING |
-| File | STRING |
-| Notes | TEXT |
-| CreatedAt | DATE |
+
+| Column    | Type              |
+| --------- | ----------------- |
+| UserID    | UNSIGNED SMALLINT |
+| Size      | STRING            |
+| Material  | STRING            |
+| File      | STRING            |
+| Notes     | TEXT              |
+| CreatedAt | DATE              |
 
 **Library**
-| Column | Type |
-|---|---|
-| Name | STRING |
-| File | STRING |
-| AveragePrice |UNSIGNED SMALLINT |
+
+| Column         | Type              |
+| -------------- | ----------------- |
+| Name           | STRING            |
+| File           | STRING            |
+| AveragePrice   | UNSIGNED SMALLINT |
 | RatingQuantity | UNSIGNED SMALLINT |
-| RatingAverage | FLOAT |
+| RatingAverage  | FLOAT             |
